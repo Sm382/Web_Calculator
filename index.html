@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="calculator.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .calculator {
+      width: 60%;
+      max-width: 400px;
+      background-color: #3f403f;
+      border-radius: 13px;
+    }
+
+    .input {
+      width: 100%;
+      background-color: black;
+      border-radius: 13px 13px 0 0;
+      padding: 15px;
+      height: 290px;
+    }
+
+    .input input {
+      text-align: right;
+      padding: 15px;
+      outline: none;
+      border: none;
+      background-color: transparent;
+      color: white;
+      font-size: 60px;
+      width: 100%;
+      margin-top: 170px; 
+    }
+
+    .button {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .button button {
+      flex: 1 1 calc(25% - 20px);
+      margin: 10px;
+      padding: 20px;
+      font-size: 1.9rem;
+      border-radius: 10px;
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .box2 button,
+    .box3 button,
+    .box4 button,
+    .box5 button {
+      font-size: 5rem;
+    }
+
+    .calculator .green {
+      color: #1dde5d;
+    }
+
+    .calculator .equal {
+      background-color: #1dde5d;
+      color: #fff;
+    }
+
+    .calculator .cancel {
+      color: #f54747;
+    }
+    
+    .calculator .plus{
+      display: flex;
+      justify-content: center;
+    }
+
+    .calculator button:hover {
+      background-color: #727573;
+      transition: 1s ease-out;
+    }
+
+    .calculator .equal:hover {
+      background-color: #80f2a6; 
+      transition: 1s ease-out;
+    }
+
+    /* Media Queries */
+    @media (max-width: 600px) {
+      .calculator {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+      
+      .input{
+        border-radius: 0;
+        height: 290px;
+        
+      }
+     
+      .input input {
+        font-size: 40px;
+        margin-top: 170px;
+      }
+
+      .button button {
+        font-size: 1.5rem;
+        padding: 15px;
+      }
+    } 
+  </style>
+</head>
+
+<body>
+   <div class="container">
+    <div class="calculator">
+      <div class="input">
+        <input type="text" readonly>
+      </div>
+      <div class="button">
+        <button class="cancel" onclick="clearDisplay()">C</button>
+        <button class="green" onclick="appendOperator('%')">%</button>
+        <button class="green" onclick="deleteLastCharacter()">&#9003;</button>
+        <button class="green" onclick="appendOperator('/')">÷</button> 
+      </div>
+      <div class="button">
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button class="green" onclick="appendOperator('*')">x</button> 
+      </div>
+      <div class="button">
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button class="green" onclick="appendOperator('-')">-</button> 
+      </div>
+      <div class="button">
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button class="button green plus" onclick="appendOperator('+')">+</button> 
+      </div>
+      <div class="button">
+        <button onclick="appendNumber('00')">00</button>
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="appendNumber('.')">.</button>
+        <button class="equal" onclick="calculateResult()">=</button> 
+      </div>
+    </div>
+  </div>
+<script src="calculator.js"></script>
+<script>
+  let display = document.querySelector(".input input");
+  
+  function appendNumber(number) {
+    display.value += number;
+  }
+  
+  function appendOperator(operator) {
+    display.value += ' ' + operator + ' ';
+  }
+  
+  function clearDisplay() {
+    display.value = '';
+  }
+  
+  function calculateResult() {
+    try {
+      display.value = eval(display.value);
+    } catch {
+      display.value = 'Error';
+    }
+  }
+  
+  function deleteLastCharacter() {
+    const currentValue = display.value;
+    display.value = currentValue.slice(0, -1);
+  } 
+</script>
+</body>
+
+</html>
